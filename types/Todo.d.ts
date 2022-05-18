@@ -10,14 +10,7 @@ export type HomeProps = {
   data: Todo[];
 };
 
-export type TodoListProps = {
-  data: Todo[];
-};
-
-export interface TodoItemProps extends ListChildComponentProps<Todo> {
-  onEditSuccess: (data: Todo) => void;
-  onDeleteSuccess: (id: number) => void;
-}
+export type TodoItemProps = ListChildComponentProps<Todo>;
 
 export type EditCompleted = {
   completed: boolean;
@@ -25,8 +18,4 @@ export type EditCompleted = {
 
 export type EditTitle = {
   title: string;
-};
-
-export type TodoInputProps = {
-  onSuccess: (data: Todo) => void;
 };
