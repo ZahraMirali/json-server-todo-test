@@ -27,6 +27,8 @@
   outline: none;
   border-color: gray;
   border-style: solid;
+  padding-left: 10px;
+  padding-right: 45px;
 }
 
 .card input:read-only {
