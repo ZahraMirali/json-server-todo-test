@@ -20,7 +20,7 @@ export default function TodoList({ data }: TodoListProps): ReactElement {
       <div className={styles.card}>
         <TodoInput onSuccess={(data) => setTodos((prev) => [...prev, data])} />
         {todos.length === 0 ? (
-          <p>Create your first To Do</p>
+          <strong className={styles.emptyTitle}>Create your first To Do</strong>
         ) : (
           <div className={styles.listContainer}>
             <AutoSizer>

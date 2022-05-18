@@ -53,3 +53,10 @@
     width: 100%;
   }
 }
+
+.emptyTitle {
+  padding: 20px;
+  margin: auto;
+  color: gray;
+  font-size: 20px;
+}
