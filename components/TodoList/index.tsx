@@ -1,24 +1,25 @@
-import { ReactElement, useState } from 'react';
-import { TodoListProps } from '../../types/Todo';
+import { ReactElement } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import TodoItem from '../TodoItem';
 import styles from './TodoList.module.css';
 import TodoInput from '../TodoInput';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { useAppSelector } from '../../store/hooks';
+import { selectTodoList } from '../../store/todoSlice';
 
-export default function TodoList({ data }: TodoListProps): ReactElement {
+export default function TodoList(): ReactElement {
   const {
     query: { type },
   } = useRouter();
-  const [todos, setTodos] = useState(data);
+  const todos = useAppSelector(selectTodoList);
   const activeTodos = todos.filter((item) => !item.completed);
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <TodoInput onSuccess={(data) => setTodos((prev) => [...prev, data])} />
+        <TodoInput />
         {todos.length === 0 ? (
           <strong className={styles.emptyTitle}>Create your first To Do</strong>
         ) : (
@@ -41,23 +42,6 @@ export default function TodoList({ data }: TodoListProps): ReactElement {
                           ? activeTodos[props.index]
                           : todos[props.index]
                       }
-                      onEditSuccess={(data) => {
-                        setTodos((prev) => {
-                          const index = prev.findIndex(
-                            (item) => item.id === data.id
-                          );
-                          return [
-                            ...prev.slice(0, index),
-                            data,
-                            ...prev.slice(index + 1),
-                          ];
-                        });
-                      }}
-                      onDeleteSuccess={(id: number) => {
-                        setTodos((prev) =>
-                          prev.filter((item) => item.id !== id)
-                        );
-                      }}
                     />
                   )}
                 </FixedSizeList>
