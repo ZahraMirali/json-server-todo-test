@@ -1,13 +1,11 @@
 import { ReactElement, useState } from 'react';
 import styles from './TodoItem.module.css';
 import { EditCompleted, EditTitle, TodoItemProps } from '../../types/Todo';
+import { updateTodo, deleteTodo } from '../../store/todoSlice';
+import { useAppDispatch } from '../../store/hooks';
 
-export default function TodoItem({
-  style,
-  data,
-  onEditSuccess,
-  onDeleteSuccess,
-}: TodoItemProps): ReactElement {
+export default function TodoItem({ style, data }: TodoItemProps): ReactElement {
+  const dispatch = useAppDispatch();
   const [title, setTitle] = useState<string>(data.title);
   const [readOnly, setReadOnly] = useState(true);
 
@@ -20,7 +18,7 @@ export default function TodoItem({
       body: JSON.stringify(values),
     })
       .then((response) => response.json())
-      .then((data) => onEditSuccess(data))
+      .then((data) => dispatch(updateTodo(data)))
       .catch((err) => console.log('err', err));
   };
 
@@ -30,7 +28,7 @@ export default function TodoItem({
     })
       .then((response) => response.json())
       .then(() => {
-        onDeleteSuccess(data.id);
+        dispatch(deleteTodo(data.id));
       })
       .catch((err) => console.log('err', err));
   };
