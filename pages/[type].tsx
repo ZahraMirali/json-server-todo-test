@@ -1,10 +1,19 @@
 import type { NextPage } from 'next';
+import { useEffect } from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { HomeProps, Todo } from '../types/Todo';
 import TodoList from '../components/TodoList';
+import { setList } from '../store/todoSlice';
+import { useAppDispatch } from '../store/hooks';
 
 const Home: NextPage<HomeProps> = ({ data }) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setList(data));
+  }, [data, dispatch]);
+
   return (
     <div>
       <Head>
@@ -18,7 +27,7 @@ const Home: NextPage<HomeProps> = ({ data }) => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Todo</h1>
-        <TodoList data={data} />
+        <TodoList />
       </main>
     </div>
   );
