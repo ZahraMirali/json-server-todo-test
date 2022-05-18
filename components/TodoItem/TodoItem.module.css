@@ -1,0 +1,38 @@
+.card {
+    border: 1px dashed #eaeaea;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    display: flex;
+}
+  
+.card button {
+  background: transparent;
+  border: none;
+  font-size: 35px;
+  color: gray;
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  cursor: pointer;
+  display: none;
+}
+
+.card:hover button {
+  display: inline-block;
+}
+
+.card input[type=text] {
+  width: 100%;
+  font-size: 22px;
+  color: dimgrey;
+  outline: none;
+  border-color: gray;
+  border-style: solid;
+}
+
+.card input:read-only {
+  border: 0px;
+}
+
+.card input[type=checkbox] {
+  margin: auto 10px;
+}
