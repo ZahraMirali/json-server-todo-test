@@ -1,8 +1,10 @@
 import { ReactElement, useState } from 'react';
-import { TodoInputProps } from '../../types/Todo';
 import styles from './TodoInput.module.css';
+import { addTodo } from '../../store/todoSlice';
+import { useAppDispatch } from '../../store/hooks';
 
-export default function TodoInput({ onSuccess }: TodoInputProps): ReactElement {
+export default function TodoInput(): ReactElement {
+  const dispatch = useAppDispatch();
   const [title, setTitle] = useState<string>('');
 
   const onAddClick = () => {
@@ -19,7 +21,7 @@ export default function TodoInput({ onSuccess }: TodoInputProps): ReactElement {
         .then((response) => response.json())
         .then((data) => {
           setTitle('');
-          onSuccess(data);
+          dispatch(addTodo(data));
         })
         .catch((err) => console.log('err', err));
     }
